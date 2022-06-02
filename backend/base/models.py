@@ -10,8 +10,10 @@ from django.contrib.auth.models import User
 # properties inside the class => properties of the object or columns
 
 # blank true means that the field could be in blank (not required)
+
+
+
 class Product(models.Model):
-    # to create the relationship with the user and the model
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
@@ -27,7 +29,6 @@ class Product(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     _id = models.AutoField(primary_key=True, editable=False)
 
-    # to see the name of the product in the admin panel
     def __str__(self):
         return str(self.name)
 
@@ -42,6 +43,7 @@ class Review(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     _id = models.AutoField(primary_key=True, editable=False)
 
+# to see the name of the product in the admin panel
     def __str__(self):
         return str(self.rating)
 

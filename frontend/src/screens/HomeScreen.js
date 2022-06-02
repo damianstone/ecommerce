@@ -8,43 +8,38 @@ import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
 import { listProducts } from '../actions/productActions';
 
-import axios from 'axios';
-
 const HomeScreen = ({ history }) => {
-  //const dispatch = useDispatch();
-  //const productList = useSelector((state) => state.productList);
-  //const { error, loading, products, page, pages } = productList;
+  const dispatch = useDispatch();
+  const productList = useSelector(state => state.productList);
+  // bring the properties of the state
+  const { error, loading, products } = productList;
 
-  //let keyword = history.location.search;
+  console.log('PRODUCTS LIST ------->', productList);
 
-  //useEffect(() => {
-  //  dispatch(listProducts(keyword));
-  //}, [dispatch, keyword]);
-
-  const [products, setProducts] = useState([]);
+  //let keyword = history.location.search
 
   useEffect(() => {
-    const fetchProd = async () => {
-      // no write the entire url because the other part of the url is in proxy packajge.json
-      const { data } = await axios.get('/api/products/');
-      setProducts(data);
-    };
-
-    fetchProd();
-  }, []);
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <div>
       <h1>Latest Products</h1>
-      <div>
-        <Row>
-          {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
-      </div>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error}</Message>
+      ) : (
+        <div>
+          <Row>
+            {products && products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+        </div>
+      )}
     </div>
   );
 };

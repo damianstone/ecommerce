@@ -31,6 +31,7 @@ const CartScreen = ({ match, location, history }) => {
     dispatch(removeFromCart(id));
   };
 
+  // go to check out if the user is logged in 
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping');
   };
