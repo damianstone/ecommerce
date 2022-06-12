@@ -18,6 +18,7 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
 
+  // if user is already logged
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);

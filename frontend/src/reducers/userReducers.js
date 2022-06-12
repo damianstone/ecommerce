@@ -19,7 +19,7 @@ import {
     USER_UPDATE_PROFILE_FAIL,
     USER_UPDATE_PROFILE_RESET,
 
-    USER_LIST_REQUEST,
+    USER_LIST_REQUEST, 
     USER_LIST_SUCCESS,
     USER_LIST_FAIL,
     USER_LIST_RESET,
@@ -53,7 +53,7 @@ export const userLoginReducer = (state = {}, action) => {
         default:
             return state
     }
-}
+} 
 
 
 export const userRegisterReducer = (state = {}, action) => {
@@ -74,7 +74,6 @@ export const userRegisterReducer = (state = {}, action) => {
             return state
     }
 }
-
 
 
 export const userDetailsReducer = (state = { user: {} }, action) => {

@@ -30,7 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
             
         return name
 
-# se pasa como parametro el el otro serializer asi este serializer es solo
+# se pasa como parametro el otro serializer asi este serializer es solo
 # una extencion del otro, el cual contiene las mismas propiedades que UserSerializer + token
 class UserSerializerWithToken(UserSerializer):
     token = serializers.SerializerMethodField(read_only=True)
@@ -41,7 +41,7 @@ class UserSerializerWithToken(UserSerializer):
     
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
-        return str(token)
+        return str(token.access_token)
         
         
 # transform data into json 

@@ -10,6 +10,7 @@ import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 import { listMyOrders } from '../actions/orderActions';
 
 const ProfileScreen = ({ history }) => {
+  // states to save the user detials and then display them in the frontend
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,6 +19,7 @@ const ProfileScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
+  // get the user details from the backend
   const userDetails = useSelector((state) => state.userDetails);
   const { error, loading, user } = userDetails;
 
@@ -31,14 +33,18 @@ const ProfileScreen = ({ history }) => {
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
   useEffect(() => {
+    // if the user is not authenticate then not show this page
     if (!userInfo) {
       history.push('/login');
     } else {
+      // check if we have the user information
+      // if not infor so dispatch the action to get the user information and the same with orders
       if (!user || !user.name || success || userInfo._id !== user._id) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails('profile'));
+        dispatch(getUserDetails('profile')); // profile parameter to make the url to users/profile and then we the token auth get the specific user
         dispatch(listMyOrders());
       } else {
+        // before render the screen set the user details into the fields
         setName(user.name);
         setEmail(user.email);
       }
@@ -52,6 +58,7 @@ const ProfileScreen = ({ history }) => {
       setMessage('Passwords do not match');
     } else {
       dispatch(
+        // update profile with the new fields
         updateUserProfile({
           id: user._id,
           name: name,

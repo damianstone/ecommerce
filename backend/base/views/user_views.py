@@ -68,13 +68,33 @@ def getUserProfile(request):
     # return the user object including info like the personal token, email, username, etc
     return Response(serializer.data)
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user 
+    serializer = UserSerializerWithToken(user, many=False)
+    
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+    
+    # just if the password is not blank (so its optional)
+    if data['password'] != '':
+        user.password = make_password(data['password'])
+    
+    user.save()
+            
+    return Response(serializer.data)
+
+
 
 @api_view(['GET'])
 @permission_classes([IsAdminUser]) # this view is just for the admins (developers for example) 
 def getUsers(request):
     # get all the users from the db
     users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
+    serializer = UserSerializerWithToken(users, many=True)
     return Response(serializer.data)
 
 
