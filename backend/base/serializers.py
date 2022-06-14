@@ -47,7 +47,7 @@ class UserSerializerWithToken(UserSerializer):
 # transform data into json 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product 
+        model = Product  
         fields = '__all__'
 
 

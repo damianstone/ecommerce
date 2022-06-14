@@ -36,6 +36,7 @@ export const cartReducer = (
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       };
 
+    // shipping address is an object containing the detials of the address
     case CART_SAVE_SHIPPING_ADDRESS:
       return {
         ...state,

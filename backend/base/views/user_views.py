@@ -68,6 +68,8 @@ def getUserProfile(request):
     # return the user object including info like the personal token, email, username, etc
     return Response(serializer.data)
 
+
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateUserProfile(request):
@@ -78,7 +80,7 @@ def updateUserProfile(request):
     user.first_name = data['name']
     user.username = data['email']
     user.email = data['email']
-    
+     
     # just if the password is not blank (so its optional)
     if data['password'] != '':
         user.password = make_password(data['password'])
