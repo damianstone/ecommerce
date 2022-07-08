@@ -42,7 +42,7 @@ const ProductEditScreen = ({ match, history }) => {
         dispatch(listProductDetails(productId));
       } else {
         setName(product.name);
-        setPrice(product.price);
+        setPrice(product.price); 
         setImage(product.image);
         setBrand(product.brand);
         setCategory(product.category);
